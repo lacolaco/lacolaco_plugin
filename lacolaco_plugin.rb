@@ -13,7 +13,7 @@ Plugin.create(:lacolaco_plugin) do
 
   def lacolaco_w
     Service.primary.update(:message => "らこらこらこ〜" + sign).trap{
-      Plugin.call(:update, nil, [Message.new(:message => "失敗しました", :system => true)])
+      activity :system, "失敗しました"
     }
   end
 
