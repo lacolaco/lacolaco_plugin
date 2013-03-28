@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 Plugin.create(:lacolaco_plugin) do
-  
+
     command(:lacolaco_plugin,
         name: "らこらこする",
         visible: false,
@@ -12,8 +12,17 @@ Plugin.create(:lacolaco_plugin) do
     end
 
   def lacolaco_w
-    Service.primary.update(:message => "らこらこらこ〜ｗ").trap{
-      Plugin.call(:message, nil, [Message.new(:message => "失敗しました", :system => true)])
+    Service.primary.update(:message => "らこらこらこ〜" + sign).trap{
+      Plugin.call(:update, nil, [Message.new(:message => "失敗しました", :system => true)])
     }
   end
+
+  def sign
+    "ｗ" * (sign_counter.call % 8 + 1)
+  end
+
+  def sign_counter
+    @sign_counter ||= gen_counter
+  end
+
 end
