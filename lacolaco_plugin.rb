@@ -10,6 +10,7 @@ Plugin.create(:lacolaco_plugin) do
         false
       elsif m.message.to_s.include?("らこらこらこ")
         Plugin.call(:lacolaco, true)
+        m.favorite(true)
       end
     end
   end
@@ -32,10 +33,14 @@ Plugin.create(:lacolaco_plugin) do
   end
 
   on_lacolaco do |passive|
-    Service.primary.update(:message => "らこらこらこ〜ｗ").trap{
+    unless passive && rand(3) == 0
+      return
+    else
+      Service.primary.update(:message => "らこらこらこ〜ｗ").trap{
       unless passive
         activity :system, "失敗しました"
       end
     }
+    end
   end
 end
