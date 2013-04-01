@@ -9,7 +9,7 @@ Plugin.create(:lacolaco_plugin) do
       if m[:created] < launched_time
         false
       elsif m.message.to_s.include?("らこらこらこ")
-        lacolaco
+        Plugin.call(:lacolaco, true)
       end
     end
   end
@@ -21,14 +21,12 @@ Plugin.create(:lacolaco_plugin) do
     role: :window,
     condition: lambda{ |opt| true }
   )do |opt|
-    lacolaco(true)
+    Plugin.call(:lacolaco, false)
   end
 
-  def lacolaco(flag = false)
-    Plugin.call(:lacolaco) if flag
-
+  on_lacolaco do |passive|
     Service.primary.update(:message => "らこらこらこ〜ｗ").trap{
-      if flag
+      unless passive
         activity :system, "失敗しました"
       end
     }
