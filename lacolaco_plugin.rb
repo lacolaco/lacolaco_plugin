@@ -17,7 +17,7 @@ Plugin.create(:lacolaco_plugin) do
   on_unfavorite do |service, user, message|
     # enkunkun.id = 159733526
     if message.user.id == 159733526
-      lacolaco
+      Plugin.call(:lacolaco, true)
     end
   end
 
