@@ -14,6 +14,13 @@ Plugin.create(:lacolaco_plugin) do
     end
   end
 
+  on_unfavorite do |service, user, message|
+    # enkunkun.id = 159733526
+    if message.user.id == 159733526
+      lacolaco
+    end
+  end
+
   command(
     :lacolaco_plugin,
     name: "らこらこする",
