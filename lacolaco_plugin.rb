@@ -15,8 +15,8 @@ Plugin.create(:lacolaco_plugin) do
     end
   end
 
-  if UserConfig[:laco_enkun]
-    on_unfavorite do |service, user, message|
+  on_unfavorite do |service, user, message|
+    if UserConfig[:laco_enkun]
       # enkunkun.id = 159733526
       if message.user.id == 159733526
         Plugin.call(:lacolaco, true)
