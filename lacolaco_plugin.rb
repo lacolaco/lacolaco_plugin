@@ -15,10 +15,12 @@ Plugin.create(:lacolaco_plugin) do
     end
   end
 
-  on_unfavorite do |service, user, message|
-    # enkunkun.id = 159733526
-    if message.user.id == 159733526
-      Plugin.call(:lacolaco, true)
+  if UserConfig[:laco_enkun]
+    on_unfavorite do |service, user, message|
+      # enkunkun.id = 159733526
+      if message.user.id == 159733526
+        Plugin.call(:lacolaco, true)
+      end
     end
   end
 
@@ -42,6 +44,10 @@ Plugin.create(:lacolaco_plugin) do
       end
     }
     end
+  end
+
+  settings "らこらこ" do
+    boolean "えんくんあんふぁぼ機能", :laco_enkun
   end
   
 end
