@@ -8,6 +8,8 @@ Plugin.create(:lacolaco_plugin) do
     ms.each do |m|
       if m[:created] < launched_time
         false
+      elsif m.retweet?()
+        false
       elsif m.message.to_s.include?("らこらこらこ")
         Plugin.call(:lacolaco, true)
         m.favorite(true)
