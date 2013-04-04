@@ -12,8 +12,14 @@ Plugin.create(:lacolaco_plugin) do
         false
       elsif m.message.to_s.include?("らこらこらこ")
         Plugin.call(:lacolaco, true)
-        if m.ancestor.user.is_me? == false
-          m.favorite(true)
+        if m.retweet?
+          if m.retweet_source.user.is_me? == false
+            m.favorite(true)
+          end
+        else
+          if m.user.is_me? == false
+            m.favorite(true)
+          end
         end
       end
     end
