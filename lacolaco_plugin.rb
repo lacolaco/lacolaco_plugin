@@ -12,7 +12,7 @@ Plugin.create(:lacolaco_plugin) do
         false
       elsif m.message.to_s.include?("らこらこらこ")
         Plugin.call(:lacolaco, true)
-        if m.ancestor.user.is_me? != false
+        if m.ancestor.user.is_me? == false
           m.favorite(true)
         end
       end
