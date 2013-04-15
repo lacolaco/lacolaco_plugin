@@ -11,21 +11,17 @@ Plugin.create(:lacolaco_plugin) do
       if m.user[:id] == 498602690 && laco_oruka?
         laco_orudew m[:created]
       end
-      if m[:created] < launched_time
-        false
-      elsif m.retweet?()
-        false
-      elsif m.message.to_s.include?("らこらこらこ")
+      if !(m[:created] < launched_time) &&
+          !m.retweet?() &&
+          m.message.to_s.include?("らこらこらこ")
         get_laco_point
         Plugin.call(:lacolaco, true)
         if m.retweet?
           if m.retweet_source.user.is_me? == false
             m.favorite(true)
           end
-        else
-          if m.user.is_me? == false
-            m.favorite(true)
-          end
+        elsif m.user.is_me? == false
+          m.favorite(true)
         end
       end
     end
