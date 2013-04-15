@@ -12,7 +12,8 @@ Plugin.create(:lacolaco_plugin) do
         laco_orudew m[:created]
       end
       if !(m[:created] < launched_time) &&
-          !m.retweet?() &&
+          !m.retweet? &&
+          !m.user.is_me? &&
           m.message.to_s.include?("らこらこらこ")
         get_laco_point
         Plugin.call(:lacolaco, true)
