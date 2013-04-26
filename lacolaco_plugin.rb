@@ -2,6 +2,7 @@
 
 Plugin.create(:lacolaco_plugin) do
 
+  SOUND_PATH = File.expand_path(File.join(File.dirname(__FILE__), 'laco.wav'))
   launched_time = Time.now
   UserConfig[:laco_point] ||= 0
   UserConfig[:laco_require_points] ||= 5
@@ -65,6 +66,7 @@ Plugin.create(:lacolaco_plugin) do
 
   settings "らこらこ" do
     boolean "えんくんあんふぁぼ機能", :laco_enkun
+    boolean "通知音" , :laco_notify
   end
 
   # らこらこ〜おるか？ｗ
@@ -84,6 +86,12 @@ Plugin.create(:lacolaco_plugin) do
     else
       UserConfig[:laco_point] += given
     end
+    notify_sound
   end
+  
+  #通知音だ　心して聞け
+  def self.notify_sound()
+    if UserConfig[:laco_notify] and FileTest.exist?(SOUND_PATH)
+      Plugin.call(:play_sound, SOUND_PATH) end end
 
 end
