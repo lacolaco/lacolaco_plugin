@@ -15,7 +15,7 @@ Plugin.create(:lacolaco_plugin) do
       if !(m[:created] < launched_time) &&
           !m.retweet? &&
           !m.user.is_me? &&
-          m.message.to_s.include?("らこらこらこ")
+          m.to_s.include?("らこらこらこ")
         get_laco_point
         Plugin.call(:lacolaco, true)
         if m.retweet?
